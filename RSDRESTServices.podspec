@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = "RSDRESTServices"
   s.version          = "0.1.0"
-  s.summary          = "A short description of RSDRESTServices."
+  s.summary          = "REST service client written in Swift"
 
   s.description      = <<-DESC
 Simple REST Services client written in Swift for use in iOS 8 or higher
