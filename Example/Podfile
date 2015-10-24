@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'RSDRESTServices_Example', :exclusive => true do
+  pod "RSDRESTServices", :path => "../"
+end
+
+target 'RSDRESTServices_Tests', :exclusive => true do
+  pod "RSDRESTServices", :path => "../"
+
+  
+end
