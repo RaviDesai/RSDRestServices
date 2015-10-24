@@ -12,4 +12,6 @@ public protocol APIResponseParserProtocol {
     typealias T
     func Parse(networkResponse: NetworkResponse) -> (T?, NSError?)
     func ParseToArray(networkResponse: NetworkResponse) -> ([T]?, NSError?)
+    
+    var acceptTypes: [String]? { get }
 }

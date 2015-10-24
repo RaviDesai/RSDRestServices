@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RSDSerialization
 
 public class APIURLBodyEncoder : APIBodyEncoderProtocol {
     private var model: SerializableToJSON

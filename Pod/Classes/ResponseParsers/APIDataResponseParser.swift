@@ -11,7 +11,14 @@ import Foundation
 public class APIDataResponseParser : APIResponseParserProtocol {
     public typealias T = NSData
     
-    public init() {}
+    public init() {
+        self.acceptTypes = nil
+    }
+    
+    public init(acceptTypes: [String]) {
+        self.acceptTypes = acceptTypes
+    }
+    public private(set) var acceptTypes: [String]?
     
     public class func convertToSerializable(response: NetworkResponse) -> (NSData?, NSError?) {
         let data: NSData? = response.getData()

@@ -1,23 +1,16 @@
 //
-//  Session.swift
-//  CEVFoundation
+//  AOISession.swift
 //
 //  Created by Ravi Desai on 6/10/15.
-//  Copyright (c) 2015 CEV. All rights reserved.
+//  Copyright (c) 2015 RSD. All rights reserved.
 //
 
 import Foundation
-
-public protocol APISessionDelegate {
-    func sessionRequiresAuthentication(session: APISession, completion:((retry: Bool)->()))
-    func sessionExperiencedNetworkFailure(session: APISession, error: NSError?)
-}
 
 public class APISession {
     public private(set) var baseURL : NSURL?
     public private(set) var session: NSURLSession
     public private(set) var selectedSite: APISite?
-    public var delegate: APISessionDelegate?
     private var sessionConfig: NSURLSessionConfiguration
     
     static let DefaultTimeoutIntervalForRequest = NSTimeInterval(30)

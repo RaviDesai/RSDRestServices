@@ -7,10 +7,18 @@
 //
 
 import Foundation
+import RSDSerialization
 
 public class APIJSONSerializableResponseParser<T: SerializableFromJSON> : APIResponseParserProtocol {
     public init() {
+        self.acceptTypes = ["application/json"]
     }
+    
+    public init(acceptTypes: [String]) {
+        self.acceptTypes = acceptTypes
+    }
+    
+    public private(set) var acceptTypes: [String]?
     
     public class func convertToSerializable(response: NetworkResponse) -> (T?, NSError?) {
         let (jsonOptional, error) = response.getJSON()

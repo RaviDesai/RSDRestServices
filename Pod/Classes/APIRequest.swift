@@ -1,24 +1,24 @@
 //
-//  Request.swift
-//  CEVFoundation
+//  APIRequest.swift
 //
 //  Created by Ravi Desai on 6/10/15.
-//  Copyright (c) 2015 CEV. All rights reserved.
+//  Copyright (c) 2015 RSD. All rights reserved.
 //
 
 import Foundation
-import CEVMobile
 
-public class APIRequest {
+public class APIRequest<U: APIResponseParserProtocol> {
     private var baseURL: NSURL?
     private var endpoint: APIEndpoint
     private var bodyEncoder: APIBodyEncoderProtocol?
-    private var additionalHeaders: [String: String]?;
-    public init(baseURL: NSURL?, endpoint: APIEndpoint, bodyEncoder: APIBodyEncoderProtocol?, additionalHeaders: [String: String]?) {
+    private var additionalHeaders: [String: String]?
+    public private(set) var responseParser: U
+    public init(baseURL: NSURL?, endpoint: APIEndpoint, bodyEncoder: APIBodyEncoderProtocol?, responseParser: U, additionalHeaders: [String: String]?) {
         self.baseURL = baseURL
         self.endpoint = endpoint
         self.bodyEncoder = bodyEncoder
         self.additionalHeaders = additionalHeaders
+        self.responseParser = responseParser
     }
     
     public func URL() -> NSURL? {
@@ -26,9 +26,9 @@ public class APIRequest {
     }
     
     public func acceptTypes() -> String? {
-        return self.endpoint.acceptTypes()
+        return self.responseParser.acceptTypes?.joinWithSeparator(", ")
     }
-    
+
     public func method() -> String {
         return self.endpoint.method()
     }

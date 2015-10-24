@@ -1,51 +1,30 @@
 //
-//  Call.swift
-//  CEVFoundation
+//  APICall.swift
 //
 //  Created by Ravi Desai on 6/10/15.
-//  Copyright (c) 2015 CEV. All rights reserved.
+//  Copyright (c) 2015 RSD. All rights reserved.
 //
 
 import Foundation
 
-public class APICall<U: APIResponseParser> {
+public class APICall<U: APIResponseParserProtocol> {
     public private(set) var session: APISession
-    private var request: APIRequest
-    private var parser: U
+    private var request: APIRequest<U>
     
-    public init(session: APISession, request: APIRequest, parser: U) {
+    public init(session: APISession, request: APIRequest<U>) {
         self.session = session
         self.request = request
-        self.parser = parser
-    }
-    
-    private func reportIfNetworkFailure(response: NetworkResponse) {
-        if (response.isNetworkFailure() && self.session.delegate != nil) {
-            self.session.delegate!.sessionExperiencedNetworkFailure(self.session, error: response.getError())
-        }
     }
     
     private func performTask(callback: (NetworkResponse) -> ()) {
-        var message = "Could not construct a valid HTTP request."
-        var userInfo = [NSLocalizedDescriptionKey:message, NSLocalizedFailureReasonErrorKey: message];
-        var error = NSError(domain: "com.github.RaviDesai", code: 48118001, userInfo: userInfo)
+        let message = "Could not construct a valid HTTP request."
+        let userInfo = [NSLocalizedDescriptionKey:message, NSLocalizedFailureReasonErrorKey: message];
+        let error = NSError(domain: "com.github.RaviDesai", code: 48118001, userInfo: userInfo)
         
         if let request = self.request.makeRequest() {
-            var task = self.session.session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
-                var result = NetworkResponse.create(data, response: response, error: error)
-                if (result.isUnauthorized() && self.session.delegate != nil) {
-                    self.session.delegate!.sessionRequiresAuthentication(self.session, completion: { (retry) -> () in
-                        var task2 = self.session.session.dataTaskWithRequest(request, completionHandler: { (data2, response2, error2) -> Void in
-                            var result2 = APIParser.ParseResponse(data2, response: response2, error: error2)
-                            self.reportIfNetworkFailure(result2)
-                            callback(result2)
-                        })
-                        task2.resume()
-                    })
-                } else {
-                    self.reportIfNetworkFailure(result)
-                    callback(result);
-                }
+            let task = self.session.session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
+                let result = NetworkResponse.create(data, response: response, error: error)
+                callback(result);
             })
             task.resume()
         } else {
@@ -61,14 +40,14 @@ public class APICall<U: APIResponseParser> {
     
     public func executeRespondWithObject(callback: (U.T?, NSError?) ->()) {
         self.performTask { (response) -> () in
-            var (result, error) = self.parser.Parse(response)
+            let (result, error) = self.request.responseParser.Parse(response)
             callback(result, error)
         }
     }
     
     public func executeRespondWithArray(callback: ([U.T]?, NSError?) ->()) {
         self.performTask { (response) -> () in
-            var (result, error) = self.parser.ParseToArray(response)
+            let (result, error) = self.request.responseParser.ParseToArray(response)
             callback(result, error)
         }
     }

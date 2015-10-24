@@ -1,9 +1,8 @@
 //
 //  APIPostData.swift
-//  CEVFoundation
 //
 //  Created by Ravi Desai on 6/11/15.
-//  Copyright (c) 2015 CEV. All rights reserved.
+//  Copyright (c) 2015 RSD. All rights reserved.
 //
 
 import Foundation

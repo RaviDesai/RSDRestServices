@@ -1,12 +1,12 @@
 //
 //  RESTResponse.swift
-//  Chat
 //
 //  Created by Ravi Desai on 4/23/15.
-//  Copyright (c) 2015 CEV. All rights reserved.
+//  Copyright (c) 2015 RSD. All rights reserved.
 //
 
 import Foundation
+import RSDSerialization
 
 public enum NetworkResponse : CustomStringConvertible {
     case Success(Int, String, NSData?)
@@ -133,11 +133,11 @@ public enum NetworkResponse : CustomStringConvertible {
         switch(self) {
         case let .HTTPStatusCodeFailure(_, localizedMessage):
             let userInfo = [NSLocalizedDescriptionKey:localizedMessage, NSLocalizedFailureReasonErrorKey: localizedMessage];
-            return NSError(domain: "com.careevolution.mobile", code: 48103005, userInfo: userInfo)
+            return NSError(domain: "com.github.RaviDesai", code: 48118003, userInfo: userInfo)
         case let .CouldNotConnectToURL(urlString):
             let message = "Could not connect to url: \(urlString)"
             let userInfo = [NSLocalizedDescriptionKey:message, NSLocalizedFailureReasonErrorKey: message];
-            return NSError(domain: "com.careevolution.mobile", code: 48103005, userInfo: userInfo)
+            return NSError(domain: "com.github.RaviDesai", code: 48118004, userInfo: userInfo)
         case let .SystemFailure(error):
             return error
         default:

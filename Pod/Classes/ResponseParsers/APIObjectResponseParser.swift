@@ -9,6 +9,15 @@
 import Foundation
 
 public class APIObjectResponseParser<T> : APIResponseParserProtocol {
+    public init() {
+        self.acceptTypes = nil
+    }
+    
+    public init(acceptTypes: [String]) {
+        self.acceptTypes = acceptTypes
+    }
+    
+    public private(set) var acceptTypes: [String]?
     
     public class func convertToSerializable(response: NetworkResponse) -> (T?, NSError?) {
         var error: NSError? = response.getError()
