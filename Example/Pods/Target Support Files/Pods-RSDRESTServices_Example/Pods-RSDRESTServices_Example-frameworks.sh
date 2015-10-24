@@ -82,8 +82,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-RSDRESTServices_Example/OHHTTPStubs.framework"
   install_framework "Pods-RSDRESTServices_Example/RSDRESTServices.framework"
+  install_framework "Pods-RSDRESTServices_Example/RSDSerialization.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-RSDRESTServices_Example/OHHTTPStubs.framework"
   install_framework "Pods-RSDRESTServices_Example/RSDRESTServices.framework"
+  install_framework "Pods-RSDRESTServices_Example/RSDSerialization.framework"
 fi

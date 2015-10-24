@@ -2,14 +2,14 @@
   "name": "RSDRESTServices",
   "version": "0.1.0",
   "summary": "A short description of RSDRESTServices.",
-  "description": "",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/RSDRESTServices",
+  "description": "Simple REST Services client written in Swift for use in iOS 8 or higher",
+  "homepage": "https://github.com/RaviDesai/RSDRESTServices",
   "license": "MIT",
   "authors": {
     "RaviDesai": "ravidesai@me.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/RSDRESTServices.git",
+    "git": "https://github.com/RaviDesai/RSDRESTServices.git",
     "tag": "0.1.0"
   },
   "platforms": {
@@ -17,9 +17,13 @@
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
-  "resource_bundles": {
-    "RSDRESTServices": [
-      "Pod/Assets/*.png"
+  "frameworks": "Foundation",
+  "dependencies": {
+    "RSDSerialization": [
+      "~> 0.1"
+    ],
+    "OHHTTPStubs": [
+      "~> 4.1.0"
     ]
   }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import CEVFoundation
+import RSDRESTServices
 
 class RestResponseTests: XCTestCase {
     

@@ -8,7 +8,7 @@
 
 import Foundation
 import OHHTTPStubs
-import CEVFoundation
+import RSDRESTServices
 
 public class MockedRESTCalls {
     public static func sampleITunesResultData() -> NSData {
@@ -45,57 +45,9 @@ public class MockedRESTCalls {
         })
     }
     
-    public static func hijackFrontDoorRequest() {
-        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            if (request.URL?.host != .Some("demo.careevolution.com")) {
-                return false;
-            }
-            if (request.URL?.path != .Some("/FrontDoor/Direct.txt")) {
-                return false;
-            }
-            
-            return true;
-        }, withStubResponse: { (request) -> OHHTTPStubsResponse in
-                let data = self.sampleFrontDoorData()
-                return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
-        })
-        
-    }
-    
-    public static func hijackOAuthLoginSequence(loginSite: APISite) {
-        let host: String? = loginSite.uri.host
-        
-        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            if (request.URL?.host != host) {
-                return false
-            }
-            if (request.URL?.path != .Some("/WebClient/api/OAuth2/Token")) {
-                return false
-            }
-            if (request.HTTPMethod != .Some("POST")) {
-                return false
-            }
-            
-//            let requestData = NSURLProtocol.propertyForKey("PostedData", inRequest: request) as? NSData
-//            if (requestData == nil) {
-//                return false
-//            }
-            
-            return true
-
-        }) { (request) -> OHHTTPStubsResponse in
-            let tokenInfo: [String: AnyObject] = ["token_type": "Bearer", "access_token": "ACCESS_TOKEN_VALUE", "refresh_token": "REFRESH_TOKEN_VALUE", "expires_in": NSNumber(int: 21600)]
-            do {
-               let tokenData = try NSJSONSerialization.dataWithJSONObject(tokenInfo, options: NSJSONWritingOptions.PrettyPrinted)
-                return OHHTTPStubsResponse(data: tokenData, statusCode: 200, headers: ["Content-Type": "application/json"])
-            } catch let error as NSError {
-                return OHHTTPStubsResponse(error: error)
-            }
-        }
-    }
     
     public static func hijackLoginSequence(loginSite: APISite) {
-        let host: String? = loginSite.uri.host
+        let host: String? = loginSite.uri?.host
         
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
             if (request.URL?.host != host) {

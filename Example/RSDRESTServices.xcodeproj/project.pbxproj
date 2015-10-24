@@ -11,6 +11,7 @@
 		419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */; };
 		419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */; };
 		419089E21BDBB79B004F6F46 /* URLAndParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */; };
+		419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089E31BDBD67F004F6F46 /* APISessionTests.swift */; };
 		5DC21D5FED478E00E163C29D /* Pods_RSDRESTServices_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D404B6C5B963653C75BF877 /* Pods_RSDRESTServices_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -36,6 +37,7 @@
 		419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTResponseTests.swift; sourceTree = "<group>"; };
 		419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISiteSerialization.swift; sourceTree = "<group>"; };
 		419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAndParametersTests.swift; sourceTree = "<group>"; };
+		419089E31BDBD67F004F6F46 /* APISessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISessionTests.swift; sourceTree = "<group>"; };
 		49114B6707C98308437D105A /* Pods-RSDRESTServices_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSDRESTServices_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSDRESTServices_Tests/Pods-RSDRESTServices_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RSDRESTServices_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSDRESTServices_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				419089E31BDBD67F004F6F46 /* APISessionTests.swift */,
 				419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */,
 				419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */,
 				419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */,
@@ -219,7 +222,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -378,6 +381,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */,
+				419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */,
 				419089DF1BDBB79B004F6F46 /* MockedRESTCalls.swift in Sources */,
 				419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */,
 				419089E21BDBB79B004F6F46 /* URLAndParametersTests.swift in Sources */,
@@ -435,6 +439,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -503,6 +508,7 @@
 				INFOPLIST_FILE = RSDRESTServices/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -515,6 +521,7 @@
 				INFOPLIST_FILE = RSDRESTServices/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -535,6 +542,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RSDRESTServices_Example.app/RSDRESTServices_Example";
@@ -553,6 +561,7 @@
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RSDRESTServices_Example.app/RSDRESTServices_Example";
 			};

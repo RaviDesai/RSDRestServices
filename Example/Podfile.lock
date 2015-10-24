@@ -1,7 +1,12 @@
 PODS:
-  - RSDRESTServices (0.1.0)
+  - OHHTTPStubs (4.1.0)
+  - RSDRESTServices (0.1.0):
+    - OHHTTPStubs (~> 4.1.0)
+    - RSDSerialization (~> 0.1)
+  - RSDSerialization (0.2.0)
 
 DEPENDENCIES:
+  - OHHTTPStubs
   - RSDRESTServices (from `../`)
 
 EXTERNAL SOURCES:
@@ -9,6 +14,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  RSDRESTServices: 8fdb340cdda828f99a44ae3fe3cd06e11c951a35
+  OHHTTPStubs: f3473ab21dbf0815253ac96b977d5c36f1daad09
+  RSDRESTServices: 20f303b2ee27e2351be0b9f93912008954859219
+  RSDSerialization: bc2d7b6d1559e682aa30a44882f83a87d7beadc5
 
 COCOAPODS: 0.39.0.beta.3

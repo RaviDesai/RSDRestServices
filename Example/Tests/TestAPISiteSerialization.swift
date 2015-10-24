@@ -8,23 +8,17 @@
 
 import UIKit
 import XCTest
-import CEVFoundation
-import CEVMobile
+import RSDRESTServices
+import RSDSerialization
 
 class TestAPISiteSerialization: XCTestCase {
     
     func testSiteConvertToJSON() {
-        let site = APISite();
-        site.name = "Apple"
-        site.uri = NSURL(string: "http://www.apple.com")
-        site.minimumAppVersion = "0.1.1"
-        site.touchIdAllowed = true
+        let site = APISite(name: "Apple", uri: "http://www.apple.com")
         
         let dict = site.convertToJSON()
         XCTAssertTrue(dict["Name"] as? String == .Some("Apple"))
         XCTAssertTrue(dict["Uri"] as? String == .Some("http://www.apple.com"))
-        XCTAssertTrue(dict["MinimumAppVersion"] as? String == .Some("0.1.1"))
-        XCTAssertTrue(dict["TouchIdAllowed"] as? NSNumber == .Some(NSNumber(bool: true)))
     }
     
     func testSiteCreate() {
@@ -38,8 +32,6 @@ class TestAPISiteSerialization: XCTestCase {
         XCTAssertTrue(site != nil)
         XCTAssertTrue(site!.name == "Apple")
         XCTAssertTrue(site!.uri != nil)
-        XCTAssertTrue(site!.uri.absoluteString == "http://www.apple.com/")
-        XCTAssertTrue(site!.minimumAppVersion == "0.1.1")
-        XCTAssertTrue(site!.touchIdAllowed == true)
+        XCTAssertTrue(site!.uri?.absoluteString == .Some("http://www.apple.com/"))
     }
 }
