@@ -1,0 +1,6 @@
+framework module Pods_RSDRESTServices_Tests {
+  umbrella header "Pods-RSDRESTServices_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

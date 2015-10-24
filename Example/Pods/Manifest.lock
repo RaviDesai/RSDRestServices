@@ -1,0 +1,14 @@
+PODS:
+  - RSDRESTServices (0.1.0)
+
+DEPENDENCIES:
+  - RSDRESTServices (from `../`)
+
+EXTERNAL SOURCES:
+  RSDRESTServices:
+    :path: ../
+
+SPEC CHECKSUMS:
+  RSDRESTServices: 8fdb340cdda828f99a44ae3fe3cd06e11c951a35
+
+COCOAPODS: 0.39.0.beta.3
