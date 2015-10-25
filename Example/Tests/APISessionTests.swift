@@ -33,20 +33,6 @@ class APISessionTests: XCTestCase {
         }
     }
     
-    func testLogin() {
-        MockedRESTCalls.hijackLoginSequence(loginSite)
-
-        var returnedError: NSError?
-        
-        APIConsumersClient.sharedClient.authenticate(self.loginSite, username: "Admin", password:"Admin", completion: { (error) -> () in
-            self.called = true
-            returnedError = error
-        })
-            
-        
-        loopUntilCalled()
-        XCTAssertTrue(returnedError == nil)
-    }
     
     func testRestCallToiTunes() {
         self.loginSite.uri = NSURL(string: "https://itunes.apple.com/");
