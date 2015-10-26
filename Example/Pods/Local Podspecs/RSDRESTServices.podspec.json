@@ -1,7 +1,7 @@
 {
   "name": "RSDRESTServices",
-  "version": "0.1.0",
-  "summary": "A short description of RSDRESTServices.",
+  "version": "0.2.0",
+  "summary": "REST service client written in Swift",
   "description": "Simple REST Services client written in Swift for use in iOS 8 or higher",
   "homepage": "https://github.com/RaviDesai/RSDRESTServices",
   "license": "MIT",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/RaviDesai/RSDRESTServices.git",
-    "tag": "0.1.0"
+    "tag": "0.2.0"
   },
   "platforms": {
     "ios": "8.0"

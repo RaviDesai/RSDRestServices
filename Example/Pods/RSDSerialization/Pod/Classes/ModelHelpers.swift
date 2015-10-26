@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public func addIf<Key, Value>(inout toDictionary: Dictionary<Key, Value>, key: Key, value: Value?) -> Void {
     if let myvalue = value {
         toDictionary[key] = myvalue
@@ -22,9 +23,9 @@ public func addTuplesIf<Key, Value>(inout toDictionary: Dictionary<Key, Value>, 
 public func convertToFormUrl<Key, Value>(fromDictionary: Dictionary<Key, Value>) -> NSData {
     var urlParams = Array<String>();
     for (key, value) in fromDictionary {
-        let encodedKey: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(key)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) ?? ""
-        let encodeValue: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(value)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) ?? ""
-        urlParams.append(("\(encodedKey)=\(encodeValue)"))
+        let encodedKey: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(key)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+        let encodedValue: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(value)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding))
+        urlParams.append(("\(encodedKey)=\(encodedValue)"))
     }
     let strData = urlParams.joinWithSeparator("&");
     return strData.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) ?? NSData()
@@ -41,6 +42,11 @@ public func convertToJSONArray<T: SerializableToJSON>(fromArray: [T]?) -> [JSOND
     return nil
 }
 
+public extension SerializableToJSON {
+    public func convertToFormUrlEncoded() -> NSData {
+        return convertToFormUrl(self)
+    }
+}
 
 public class ModelFactory<T: SerializableFromJSON> {
     public static func createFromJSONArray(json: JSON) -> [T.ConcreteType]? {

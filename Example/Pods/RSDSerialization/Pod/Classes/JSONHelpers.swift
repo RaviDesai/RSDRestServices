@@ -59,16 +59,16 @@ public func asUrl(object: JSON) -> NSURL? {
     return nil
 }
 
-public func asDate(format: String)(object: JSON) -> NSDate? {
-    if let dateString = object as? String {
-        return toDateFromString(format, dateString: dateString)
+public func asUUID(object: JSON) -> NSUUID? {
+    if let uuidString = object as? String {
+        return NSUUID(UUIDString: uuidString)
     }
     return nil
 }
 
-public func nullBind<T>(optional: JSON?, asFunction: JSON -> T?) -> T? {
-    if let value: JSON = optional {
-        return asFunction(value)
+public func asDate(format: String)(object: JSON) -> NSDate? {
+    if let dateString = object as? String {
+        return toDateFromString(format, dateString: dateString)
     }
     return nil
 }

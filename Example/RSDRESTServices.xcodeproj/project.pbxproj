@@ -12,6 +12,8 @@
 		419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */; };
 		419089E21BDBB79B004F6F46 /* URLAndParametersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */; };
 		419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089E31BDBD67F004F6F46 /* APISessionTests.swift */; };
+		41A83CCD1BDD31E6003AF6D0 /* iTunesResults.json in Resources */ = {isa = PBXBuildFile; fileRef = 41A83CCC1BDD31E6003AF6D0 /* iTunesResults.json */; };
+		41A83CCF1BDD3A92003AF6D0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A83CCE1BDD3A92003AF6D0 /* User.swift */; };
 		5DC21D5FED478E00E163C29D /* Pods_RSDRESTServices_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D404B6C5B963653C75BF877 /* Pods_RSDRESTServices_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -38,6 +40,8 @@
 		419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISiteSerialization.swift; sourceTree = "<group>"; };
 		419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAndParametersTests.swift; sourceTree = "<group>"; };
 		419089E31BDBD67F004F6F46 /* APISessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APISessionTests.swift; sourceTree = "<group>"; };
+		41A83CCC1BDD31E6003AF6D0 /* iTunesResults.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iTunesResults.json; sourceTree = "<group>"; };
+		41A83CCE1BDD3A92003AF6D0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		49114B6707C98308437D105A /* Pods-RSDRESTServices_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSDRESTServices_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSDRESTServices_Tests/Pods-RSDRESTServices_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RSDRESTServices_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSDRESTServices_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -143,12 +147,14 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				41A83CCC1BDD31E6003AF6D0 /* iTunesResults.json */,
 				419089E31BDBD67F004F6F46 /* APISessionTests.swift */,
 				419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */,
 				419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */,
 				419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */,
 				419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				41A83CCE1BDD3A92003AF6D0 /* User.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -268,6 +274,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41A83CCD1BDD31E6003AF6D0 /* iTunesResults.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +389,7 @@
 			files = (
 				419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */,
 				419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */,
+				41A83CCF1BDD3A92003AF6D0 /* User.swift in Sources */,
 				419089DF1BDBB79B004F6F46 /* MockedRESTCalls.swift in Sources */,
 				419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */,
 				419089E21BDBB79B004F6F46 /* URLAndParametersTests.swift in Sources */,
