@@ -140,6 +140,11 @@ public enum NetworkResponse : CustomStringConvertible {
             return NSError(domain: "com.github.RaviDesai", code: 48118004, userInfo: userInfo)
         case let .SystemFailure(error):
             return error
+        case .NetworkFailure:
+            let message = "General Network Failure"
+            let userInfo = [NSLocalizedDescriptionKey:message, NSLocalizedFailureReasonErrorKey: message];
+            return NSError(domain: "com.github.RaviDesai", code: 48118005, userInfo: userInfo)
+            
         default:
             return nil
         }

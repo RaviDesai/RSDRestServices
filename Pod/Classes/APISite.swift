@@ -9,7 +9,7 @@ import Foundation
 import RSDSerialization
 
 
-public class APISite : JSONSerializable, Comparable {
+public struct APISite : JSONSerializable, Comparable {
     public var name: String
     public var uri: NSURL?
     

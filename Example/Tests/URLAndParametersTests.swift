@@ -38,4 +38,13 @@ class URLAndParametersTests: XCTestCase {
         
         XCTAssertEqual("\(urlAndParams)", "https://itunes.apple.com/search?term=Pink&nextTerm=Floyd")
     }
+    
+    func testUrlFunction() {
+        let urlAndParams = URLAndParameters(url: "/search/test")
+        let url = urlAndParams.URL(nil)
+        XCTAssert(url!.absoluteString == "/search/test")
+        
+        let url2 = urlAndParams.URL(NSURL(string: "http://itunes.apple.com"))
+        XCTAssert(url2!.absoluteString == "http://itunes.apple.com/search/test")
+    }
 }

@@ -162,4 +162,36 @@ class MockedRESTCalls {
         
     }
 
+    class func hijackUserDelete() {
+        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
+            if (request.URL?.host != .Some("com.desai")) { return false }
+            if (request.URL?.path != .Some("/api/Users")) { return false }
+            if (request.HTTPMethod != "DELETE") { return false }
+            if (request.URL?.query != nil) { return false }
+            return true
+            }) { (request) -> OHHTTPStubsResponse in
+                if let data = NSURLProtocol.propertyForKey("PostedData", inRequest: request) as? NSData {
+                    if let json: JSON = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) {
+                        if let newUser = User.createFromJSON(json) {
+                            if (newUser.id == nil) {
+                                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 404, headers: nil)
+                            }
+                            let found = sampleUsers().filter { $0 == newUser }.first
+                            if found != nil {
+                                if let resultData = try? NSJSONSerialization.dataWithJSONObject(newUser.convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted) {
+                                    return OHHTTPStubsResponse(data: resultData, statusCode: 200, headers: ["Content-Type": "application/json"])
+                                } else {
+                                    return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 500, headers: nil)
+                                }
+                            } else {
+                                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 404, headers: nil)
+                            }
+                        }
+                    }
+                }
+                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 422, headers: nil)
+        }
+        
+    }
+
 }

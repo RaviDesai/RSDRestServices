@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4155ED721BDE61E200EEC431 /* TestNetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4155ED711BDE61E200EEC431 /* TestNetworkResponse.swift */; };
+		4155ED741BDE685300EEC431 /* TestAPISite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4155ED731BDE685300EEC431 /* TestAPISite.swift */; };
 		419089DF1BDBB79B004F6F46 /* MockedRESTCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */; };
 		419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */; };
 		419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */; };
@@ -35,6 +37,8 @@
 
 /* Begin PBXFileReference section */
 		3D404B6C5B963653C75BF877 /* Pods_RSDRESTServices_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSDRESTServices_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4155ED711BDE61E200EEC431 /* TestNetworkResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestNetworkResponse.swift; sourceTree = "<group>"; };
+		4155ED731BDE685300EEC431 /* TestAPISite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISite.swift; sourceTree = "<group>"; };
 		419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedRESTCalls.swift; sourceTree = "<group>"; };
 		419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTResponseTests.swift; sourceTree = "<group>"; };
 		419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISiteSerialization.swift; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 				419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */,
 				419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */,
 				419089DE1BDBB79B004F6F46 /* URLAndParametersTests.swift */,
+				4155ED711BDE61E200EEC431 /* TestNetworkResponse.swift */,
+				4155ED731BDE685300EEC431 /* TestAPISite.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				41A83CCE1BDD3A92003AF6D0 /* User.swift */,
 			);
@@ -390,7 +396,9 @@
 				419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */,
 				419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */,
 				41A83CCF1BDD3A92003AF6D0 /* User.swift in Sources */,
+				4155ED741BDE685300EEC431 /* TestAPISite.swift in Sources */,
 				419089DF1BDBB79B004F6F46 /* MockedRESTCalls.swift in Sources */,
+				4155ED721BDE61E200EEC431 /* TestNetworkResponse.swift in Sources */,
 				419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */,
 				419089E21BDBB79B004F6F46 /* URLAndParametersTests.swift in Sources */,
 			);

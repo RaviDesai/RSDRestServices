@@ -16,12 +16,19 @@ class APISessionTests: XCTestCase {
     var called = false
     let runLoop = NSRunLoop.currentRunLoop();
     var loginSite = APISite(name: "Sample", uri: "https://com.desai/")
+    var session: APISession?
     
     override func setUp() {
         super.setUp();
+        self.session = APISession(site: self.loginSite, configurationBlock: nil)
     }
     
     override func tearDown() {
+        self.called = false
+        self.session!.reset { () -> () in
+            self.called = true
+        }
+        self.loopUntilCalled()
         OHHTTPStubs.removeAllStubs();
         super.tearDown();
     }
@@ -37,13 +44,13 @@ class APISessionTests: XCTestCase {
         MockedRESTCalls.hijackITunesSearch()
         
         self.loginSite.uri = NSURL(string: "https://itunes.apple.com/");
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
+        let newsession = APISession(site: self.loginSite, configurationBlock: nil)
         
         let endpointUrl = URLAndParameters(url: "search", parameters: ("term", "Pink+Floyd"))
-        let endpoint = APIEndpoint(method: "GET", url: endpointUrl)
+        let endpoint = APIEndpoint.GET(endpointUrl)
         let parser = APIDataResponseParser()
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: newsession.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: newsession, request: request)
         var returnedResponse: NSData?
         var returnedError: NSError?
     
@@ -101,13 +108,11 @@ class APISessionTests: XCTestCase {
     func testGetUsers() {
         MockedRESTCalls.hijackUserGetAll()
         
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
-        
         let endpointUrl = URLAndParameters(url: "api/Users")
-        let endpoint = APIEndpoint(method: "GET", url: endpointUrl)
+        let endpoint = APIEndpoint.GET(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: [User]?
         var returnedError: NSError?
         
@@ -127,13 +132,11 @@ class APISessionTests: XCTestCase {
     func testGetUsersDavidGilmour() {
         MockedRESTCalls.hijackUserGetMatching()
         
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
-        
         let endpointUrl = URLAndParameters(url: "api/Users", parameters: ("prefix", "Sir"), ("last", "Gilmour"))
-        let endpoint = APIEndpoint(method: "GET", url: endpointUrl)
+        let endpoint = APIEndpoint.GET(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: [User]?
         var returnedError: NSError?
         
@@ -154,13 +157,11 @@ class APISessionTests: XCTestCase {
     func testGetAllKnighted() {
         MockedRESTCalls.hijackUserGetMatching()
         
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
-        
         let endpointUrl = URLAndParameters(url: "api/Users", parameters: ("prefix", "Sir"))
-        let endpoint = APIEndpoint(method: "GET", url: endpointUrl)
+        let endpoint = APIEndpoint.GET(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: nil, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: [User]?
         var returnedError: NSError?
         
@@ -180,15 +181,14 @@ class APISessionTests: XCTestCase {
     
     func testPostNewUser() {
         MockedRESTCalls.hijackUserPost()
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
         
         let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
         let endpointUrl = URLAndParameters(url: "api/Users")
-        let endpoint = APIEndpoint(method: "POST", url: endpointUrl)
+        let endpoint = APIEndpoint.POST(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
         let encoder = APIJSONBodyEncoder(model: newUser)
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: User?
         var returnedError: NSError?
         
@@ -211,15 +211,14 @@ class APISessionTests: XCTestCase {
 
     func testPostExistingUser() {
         MockedRESTCalls.hijackUserPost()
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
         
         let existingUser = MockedRESTCalls.sampleUsers()[1]
         let endpointUrl = URLAndParameters(url: "api/Users")
-        let endpoint = APIEndpoint(method: "POST", url: endpointUrl)
+        let endpoint = APIEndpoint.POST(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
         let encoder = APIJSONBodyEncoder(model: existingUser)
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: User?
         var returnedError: NSError?
         
@@ -236,15 +235,14 @@ class APISessionTests: XCTestCase {
 
     func testPutNewUser() {
         MockedRESTCalls.hijackUserPut()
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
         
         let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
         let endpointUrl = URLAndParameters(url: "api/Users")
-        let endpoint = APIEndpoint(method: "PUT", url: endpointUrl)
+        let endpoint = APIEndpoint.PUT(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
         let encoder = APIJSONBodyEncoder(model: newUser)
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: User?
         var returnedError: NSError?
         
@@ -261,15 +259,14 @@ class APISessionTests: XCTestCase {
     
     func testPutExistingUser() {
         MockedRESTCalls.hijackUserPut()
-        let session = APISession(site: self.loginSite, configurationBlock: nil)
         
         let existingUser = MockedRESTCalls.sampleUsers()[1]
         let endpointUrl = URLAndParameters(url: "api/Users")
-        let endpoint = APIEndpoint(method: "PUT", url: endpointUrl)
+        let endpoint = APIEndpoint.PUT(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
         let encoder = APIJSONBodyEncoder(model: existingUser)
-        let request = APIRequest(baseURL: session.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
-        let call = APICall(session: session, request: request)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
         var returnedResponse: User?
         var returnedError: NSError?
         
@@ -284,5 +281,98 @@ class APISessionTests: XCTestCase {
         XCTAssertTrue(returnedResponse != nil)
         XCTAssertTrue(returnedResponse! == existingUser)
     }
+    
+    func testDeleteExistingUser() {
+        MockedRESTCalls.hijackUserDelete()
 
+        let existingUser = MockedRESTCalls.sampleUsers()[1]
+        let endpointUrl = URLAndParameters(url: "api/Users")
+        let endpoint = APIEndpoint.DELETE(endpointUrl)
+        let parser = APIJSONSerializableResponseParser<User>()
+        let encoder = APIJSONBodyEncoder(model: existingUser)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
+        var returnedResponse: User?
+        var returnedError: NSError?
+        
+        call.executeRespondWithObject{ (data, error) -> () in
+            returnedResponse = data
+            returnedError = error
+            self.called = true
+        }
+        
+        self.loopUntilCalled()
+        XCTAssertTrue(returnedError == nil)
+        XCTAssertTrue(returnedResponse != nil)
+        XCTAssertTrue(returnedResponse! == existingUser)
+    }
+    
+    func testDeleteNewUser() {
+        MockedRESTCalls.hijackUserDelete()
+        
+        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
+        let endpointUrl = URLAndParameters(url: "api/Users")
+        let endpoint = APIEndpoint.DELETE(endpointUrl)
+        let parser = APIJSONSerializableResponseParser<User>()
+        let encoder = APIJSONBodyEncoder(model: newUser)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
+        var returnedResponse: User?
+        var returnedError: NSError?
+        
+        call.executeRespondWithObject{ (data, error) -> () in
+            returnedResponse = data
+            returnedError = error
+            self.called = true
+        }
+        
+        self.loopUntilCalled()
+        XCTAssertTrue(returnedError != nil)
+        XCTAssertTrue(returnedResponse == nil)
+    }
+
+
+    func testSetCookies() {
+        
+        session!.setSessionCookieValue("test", value: "one")
+        let find = session!.session.configuration.HTTPCookieStorage?.cookies?.filter { $0.name == "test"}.first
+        XCTAssertTrue(find != nil)
+        XCTAssertTrue(find!.name == "test")
+        
+        session!.setSessionCookieValue("test", value: nil)
+        let notfind = session!.session.configuration.HTTPCookieStorage?.cookies?.filter { $0.name == "test"}.first
+        XCTAssertTrue(notfind == nil)
+    }
+    
+    func testResetSession() {
+        MockedRESTCalls.hijackUserDelete()
+        let existingUser = MockedRESTCalls.sampleUsers()[1]
+        let endpointUrl = URLAndParameters(url: "api/Users")
+        let endpoint = APIEndpoint.DELETE(endpointUrl)
+        let parser = APIJSONSerializableResponseParser<User>()
+        let encoder = APIJSONBodyEncoder(model: existingUser)
+        let request = APIRequest(baseURL: session!.baseURL, endpoint: endpoint, bodyEncoder: encoder, responseParser: parser, additionalHeaders: nil)
+        let call = APICall(session: session!, request: request)
+        var returnedResponse: User?
+        var returnedError: NSError?
+        var executeReturned = false
+        var resetReturned = false
+        
+        call.executeRespondWithObject{ (data, error) -> () in
+            returnedResponse = data
+            returnedError = error
+            executeReturned = true
+            self.called = executeReturned && resetReturned
+        }
+        
+        self.session!.reset { () -> () in
+            resetReturned = true
+            self.called = executeReturned && resetReturned
+        }
+        
+        self.loopUntilCalled()
+        
+        XCTAssertTrue(returnedResponse == nil)
+        XCTAssertTrue(returnedError != nil)
+    }
 }

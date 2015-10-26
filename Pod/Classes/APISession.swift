@@ -59,6 +59,7 @@ public class APISession {
                 self.session.configuration.HTTPCookieStorage?.setCookie(cookie)
             }
         } else {
+            cookieProperties[NSHTTPCookieValue] = ""
             if let cookie = NSHTTPCookie(properties: cookieProperties) {
                 self.session.configuration.HTTPCookieStorage?.deleteCookie(cookie)
             }
