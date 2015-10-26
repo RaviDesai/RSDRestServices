@@ -17,6 +17,7 @@
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",
+  "public_header_files": "Pod/Classes/**/*.h",
   "frameworks": "Foundation",
   "dependencies": {
     "RSDSerialization": [
