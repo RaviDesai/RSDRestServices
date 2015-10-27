@@ -18,9 +18,13 @@ public class APIURLBodyEncoder : APIBodyEncoderProtocol {
     private func convertToFormUrl<Key, Value>(fromDictionary: Dictionary<Key, Value>) -> NSData {
         var urlParams = Array<String>();
         for (key, value) in fromDictionary {
-            let encodedKey: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(key)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) ?? ""
-            let encodeValue: CFString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, "\(value)", nil, ":/?#[]@!$'()*+,;",CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)) ?? ""
-            urlParams.append(("\(encodedKey)=\(encodeValue)"))
+            let set = NSCharacterSet.URLQueryAllowedCharacterSet().mutableCopy()
+            set.removeCharactersInString(":/?#[]@!$'()*+,;")
+            
+            let encodedKey = "\(key)".stringByAddingPercentEncodingWithAllowedCharacters(set as! NSCharacterSet) ?? ""
+            let encodedValue = "\(value)".stringByAddingPercentEncodingWithAllowedCharacters(set as! NSCharacterSet) ?? ""
+            
+            urlParams.append(("\(encodedKey)=\(encodedValue)"))
         }
         let strData = urlParams.joinWithSeparator("&");
         return strData.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) ?? NSData()

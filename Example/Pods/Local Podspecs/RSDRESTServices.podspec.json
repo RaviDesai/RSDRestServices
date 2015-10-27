@@ -1,6 +1,6 @@
 {
   "name": "RSDRESTServices",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "summary": "REST service client written in Swift",
   "description": "Simple REST Services client written in Swift for use in iOS 8 or higher",
   "homepage": "https://github.com/RaviDesai/RSDRESTServices",
@@ -10,10 +10,10 @@
   },
   "source": {
     "git": "https://github.com/RaviDesai/RSDRESTServices.git",
-    "tag": "0.2.0"
+    "tag": "0.3.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",

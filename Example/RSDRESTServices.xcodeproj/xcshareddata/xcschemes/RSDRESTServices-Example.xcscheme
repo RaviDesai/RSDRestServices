@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FF95CBA2543650962A631A7688131F1A"
+               BlueprintIdentifier = "B615B91C0EFC32525D7737DA4552EEBF"
                BuildableName = "RSDRESTServices.framework"
                BlueprintName = "RSDRESTServices"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">

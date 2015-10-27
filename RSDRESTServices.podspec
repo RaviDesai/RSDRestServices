@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "RSDRESTServices"
-  s.version          = "0.3.0"
+  s.version          = "0.3.1"
   s.summary          = "REST service client written in Swift"
 
   s.description      = <<-DESC
@@ -20,7 +20,7 @@ Simple REST Services client written in Swift for use in iOS 8 or higher
   s.author           = { "RaviDesai" => "ravidesai@me.com" }
   s.source           = { :git => "https://github.com/RaviDesai/RSDRESTServices.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes/**/*'
