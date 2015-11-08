@@ -123,7 +123,31 @@ class TestNetworkResponse: XCTestCase {
         response = NetworkResponse.Undetermined
         XCTAssertTrue(response.getData() == nil)
     }
-    
+
+    func testGetError() {
+        var response = NetworkResponse.CouldNotConnectToURL("http://www.apple.com")
+        XCTAssertTrue(response.getError() != nil)
+        
+        response = NetworkResponse.HTTPStatusCodeFailure(400, "unauthorized")
+        XCTAssertTrue(response.getError() != nil)
+        
+        response = NetworkResponse.NetworkFailure
+        XCTAssertTrue(response.getError() != nil)
+        
+        let data = NSData()
+        response = NetworkResponse.Success(200, "OK", data)
+        XCTAssertTrue(response.getError() == nil)
+        
+        let message = "squirrel"
+        let userInfo = [NSLocalizedDescriptionKey:message, NSLocalizedFailureReasonErrorKey: message];
+        let err = NSError(domain: "com.desai", code: 48118000, userInfo: userInfo)
+        response = NetworkResponse.SystemFailure(err)
+        XCTAssertTrue(response.getError() != nil)
+        
+        response = NetworkResponse.Undetermined
+        XCTAssertTrue(response.getError() != nil)
+    }
+
     func testGetJSON() {
         var response = NetworkResponse.CouldNotConnectToURL("http://www.apple.com")
         var (json, error) = response.getJSON()
@@ -161,7 +185,7 @@ class TestNetworkResponse: XCTestCase {
         response = NetworkResponse.Undetermined
         (json, error) = response.getJSON()
         XCTAssertTrue(json == nil)
-        XCTAssertTrue(error == nil)
+        XCTAssertTrue(error != nil)
         
     }
 }
