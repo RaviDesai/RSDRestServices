@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B615B91C0EFC32525D7737DA4552EEBF"
+               BlueprintIdentifier = "725D6042CAF3AE743AF3FD9C27C60924"
                BuildableName = "RSDRESTServices.framework"
                BlueprintName = "RSDRESTServices"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B615B91C0EFC32525D7737DA4552EEBF"
+            BlueprintIdentifier = "725D6042CAF3AE743AF3FD9C27C60924"
             BuildableName = "RSDRESTServices.framework"
             BlueprintName = "RSDRESTServices"
             ReferencedContainer = "container:Pods.xcodeproj">

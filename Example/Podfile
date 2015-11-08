@@ -9,5 +9,4 @@ end
 
 target 'RSDRESTServices_Tests', :exclusive => true do
   pod "RSDRESTServices", :path => "../"
-  pod "OHHTTPStubs"
 end
