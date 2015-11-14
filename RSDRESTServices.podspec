@@ -32,7 +32,7 @@ Simple REST Services client written in Swift for use in iOS 8 or higher
   s.public_header_files = 'Pod/Classes/**/*.h'
 
   s.frameworks = 'Foundation'
-  s.dependency 'RSDSerialization', '~> 0.1'
+  s.dependency 'RSDSerialization', '~> 0.3'
   s.dependency 'OHHTTPStubs', '~> 4.1.0'
 
 end

@@ -1,6 +1,6 @@
 {
   "name": "RSDRESTServices",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "summary": "REST service client written in Swift",
   "description": "Simple REST Services client written in Swift for use in iOS 8 or higher",
   "homepage": "https://github.com/RaviDesai/RSDRESTServices",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/RaviDesai/RSDRESTServices.git",
-    "tag": "0.3.3"
+    "tag": "0.3.4"
   },
   "platforms": {
     "ios": "9.0"
@@ -21,7 +21,7 @@
   "frameworks": "Foundation",
   "dependencies": {
     "RSDSerialization": [
-      "~> 0.1"
+      "~> 0.3"
     ],
     "OHHTTPStubs": [
       "~> 4.1.0"
