@@ -136,7 +136,7 @@ public class MockedRESTStore<T: ModelItem> {
                     return false
                 }
                 
-                if request.URL?.path == self.endpoint {
+                if request.URL?.path != self.endpoint {
                     return false
                 }
                 
@@ -150,9 +150,9 @@ public class MockedRESTStore<T: ModelItem> {
                 
                 return true
             }, withStubResponse: { (request) -> OHHTTPStubsResponse in
-                    return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
-                        return MockHTTPResponder<T>.produceObjectResponse(self.create(item as! T))
-                    })
+                return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
+                    return MockHTTPResponder<T>.produceObjectResponse(self.create(item as! T))
+                })
             })
     }
     
@@ -179,9 +179,9 @@ public class MockedRESTStore<T: ModelItem> {
                 
                 return true
             }, withStubResponse: { (request) -> OHHTTPStubsResponse in
-                    return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
-                        return MockHTTPResponder<T>.produceObjectResponse(self.update(item as! T))
-                    })
+                return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
+                    return MockHTTPResponder<T>.produceObjectResponse(self.update(item as! T))
+                })
             })
     }
     
