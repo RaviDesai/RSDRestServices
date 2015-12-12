@@ -44,15 +44,13 @@ struct User: JSONSerializable, Comparable, CustomStringConvertible {
     }
     
     func convertToJSON() -> JSONDictionary {
-        var dict = JSONDictionary()
-        addTuplesIf(&dict, tuples:
+        return JSONDictionary(tuples:
             ("ID", self.id?.UUIDString),
             ("Prefix", self.prefix),
             ("First", self.first),
             ("Middle", self.middle),
             ("Last", self.last),
             ("Suffix", self.suffix))
-        return dict
     }
     
     var description: String {

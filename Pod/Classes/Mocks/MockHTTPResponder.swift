@@ -24,8 +24,8 @@ func pullIdFromPath(path: String?, regEx: NSRegularExpression?) -> NSUUID? {
 }
 
 public class MockHTTPResponder<T: JSONSerializable> {
-    public class func getPostedObject(request: NSURLRequest) -> T.ConcreteType? {
-        var result: T.ConcreteType?
+    public class func getPostedObject(request: NSURLRequest) -> T? {
+        var result: T?
         if let requestData = NSURLProtocol.propertyForKey("PostedData", inRequest: request) as? NSData {
             if let json = try? NSJSONSerialization.JSONObjectWithData(requestData, options: NSJSONReadingOptions.AllowFragments) {
                 result = T.createFromJSON(json)
@@ -41,7 +41,7 @@ public class MockHTTPResponder<T: JSONSerializable> {
         return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 400, headers: nil)
     }
     
-    public class func withPostedObject(request: NSURLRequest, logic: ((T.ConcreteType)->OHHTTPStubsResponse)) -> OHHTTPStubsResponse {
+    public class func withPostedObject(request: NSURLRequest, logic: ((T)->OHHTTPStubsResponse)) -> OHHTTPStubsResponse {
         
         if let deserialized = MockHTTPResponder<T>.getPostedObject(request) {
             return logic(deserialized)
@@ -50,7 +50,7 @@ public class MockHTTPResponder<T: JSONSerializable> {
         return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 400, headers: nil)
     }
     
-    public class func withPostedArray(request: NSURLRequest, logic: (([T.ConcreteType])->OHHTTPStubsResponse)) -> OHHTTPStubsResponse {
+    public class func withPostedArray(request: NSURLRequest, logic: (([T])->OHHTTPStubsResponse)) -> OHHTTPStubsResponse {
         if let requestData = NSURLProtocol.propertyForKey("PostedData", inRequest: request) as? NSData {
             if let json = try? NSJSONSerialization.JSONObjectWithData(requestData, options: NSJSONReadingOptions.AllowFragments) {
                 if let deserialized = ModelFactory<T>.createFromJSONArray(json) {
@@ -77,7 +77,7 @@ public class MockHTTPResponder<T: JSONSerializable> {
     }
     
     public class func produceArrayResponse(array: [T]?) -> OHHTTPStubsResponse {
-        if let json = convertToJSONArray(array) {
+        if let json = array?.convertToJSONArray() {
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions.PrettyPrinted)
                 return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])

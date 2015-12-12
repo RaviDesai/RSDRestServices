@@ -44,6 +44,17 @@ public class MockedRESTStore<T: ModelItem> {
         return nil
     }
     
+    public func verifyUnique(object: T, atIndex: Int) -> Bool {
+        for (var index = 0; index < store.count; index++) {
+            if (index != atIndex) {
+                if (store[index] ==% object) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+    
     public func findIndexOfUUID(id: NSUUID) -> Int? {
         for (var index = 0; index < store.count; index++) {
             if (store[index].id == id) {
@@ -55,6 +66,7 @@ public class MockedRESTStore<T: ModelItem> {
     
     public func create(object: T) -> T? {
         if (object.id != nil) { return nil }
+        if (!verifyUnique(object, atIndex: -1)) { return nil }
         
         var item = object
         item.id = NSUUID()
@@ -64,8 +76,10 @@ public class MockedRESTStore<T: ModelItem> {
     
     public func update(object: T) -> T? {
         if let index = self.findIndex(object) {
-            self.store[index] = object
-            return object
+            if (verifyUnique(object, atIndex: index)) {
+                self.store[index] = object
+                return object
+            }
         }
         return nil
     }
@@ -151,7 +165,7 @@ public class MockedRESTStore<T: ModelItem> {
                 return true
             }, withStubResponse: { (request) -> OHHTTPStubsResponse in
                 return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
-                    return MockHTTPResponder<T>.produceObjectResponse(self.create(item as! T))
+                    return MockHTTPResponder<T>.produceObjectResponse(self.create(item))
                 })
             })
     }
@@ -180,7 +194,7 @@ public class MockedRESTStore<T: ModelItem> {
                 return true
             }, withStubResponse: { (request) -> OHHTTPStubsResponse in
                 return MockHTTPResponder<T>.withPostedObject(request, logic: { (item) -> OHHTTPStubsResponse in
-                    return MockHTTPResponder<T>.produceObjectResponse(self.update(item as! T))
+                    return MockHTTPResponder<T>.produceObjectResponse(self.update(item ))
                 })
             })
     }

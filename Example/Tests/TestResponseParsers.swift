@@ -38,7 +38,7 @@ class TestResponseParsers: XCTestCase {
         let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
 
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
-        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(convertToJSONArray(users)!, options: NSJSONWritingOptions.PrettyPrinted)
+        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)
         
         let parser = APIJSONSerializableResponseParser<User>()
         
@@ -62,7 +62,7 @@ class TestResponseParsers: XCTestCase {
         let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
         
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
-        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(convertToJSONArray(users)!, options: NSJSONWritingOptions.PrettyPrinted)
+        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)
         
         let parser = APIJSONSerializableResponseParser<User>()
         
@@ -83,7 +83,7 @@ class TestResponseParsers: XCTestCase {
         let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
         
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
-        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(convertToJSONArray(users)!, options: NSJSONWritingOptions.PrettyPrinted)
+        let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)
         
         let parserForSite = APIJSONSerializableResponseParser<APISite>()
         

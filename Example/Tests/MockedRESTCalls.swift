@@ -34,8 +34,8 @@ class MockedRESTCalls {
     }
     
     static func sampleUsersData() -> NSData {
-        let jsonArray = convertToJSONArray(MockedRESTCalls.sampleUsers())
-        return try! NSJSONSerialization.dataWithJSONObject(jsonArray!, options: NSJSONWritingOptions.PrettyPrinted)
+        let jsonArray = MockedRESTCalls.sampleUsers().convertToJSONArray()
+        return try! NSJSONSerialization.dataWithJSONObject(jsonArray, options: NSJSONWritingOptions.PrettyPrinted)
     }
     
     class func hijackITunesSearch() {
@@ -90,10 +90,9 @@ class MockedRESTCalls {
                     }
                 }
             }
-            if let jsonArray = convertToJSONArray(users) {
-                if let data = try? NSJSONSerialization.dataWithJSONObject(jsonArray, options: NSJSONWritingOptions.PrettyPrinted) {
-                    return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
-                }
+            let jsonArray = users.convertToJSONArray()
+            if let data = try? NSJSONSerialization.dataWithJSONObject(jsonArray, options: NSJSONWritingOptions.PrettyPrinted) {
+                return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
             }
             return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 500, headers: nil)
         }
