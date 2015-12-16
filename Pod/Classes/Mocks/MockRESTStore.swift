@@ -17,8 +17,8 @@ public enum StoreError: ErrorType {
 }
 
 public class MockedRESTStore<T: ModelItem> {
-    private var host: String?
-    private var endpoint: String?
+    public var host: String?
+    public var endpoint: String?
     private var endpointRegEx: NSRegularExpression?
     
     public var store: [T]
@@ -120,6 +120,9 @@ public class MockedRESTStore<T: ModelItem> {
                 if (request.HTTPMethod != "GET") {
                     return false
                 }
+                if let queryString = request.URL?.query where queryString != "" {
+                    return false
+                }
                 
                 return true
             }, withStubResponse: { (request) -> OHHTTPStubsResponse in
@@ -141,6 +144,10 @@ public class MockedRESTStore<T: ModelItem> {
                 }
                 
                 if (request.HTTPMethod != "GET") {
+                    return false
+                }
+                
+                if let queryString = request.URL?.query where queryString != "" {
                     return false
                 }
                 
