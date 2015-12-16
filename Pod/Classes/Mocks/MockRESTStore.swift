@@ -23,11 +23,11 @@ public class MockedRESTStore<T: ModelItem> {
     
     public var store: [T]
     
-    private var createStub: OHHTTPStubsDescriptor?
-    private var deleteStub: OHHTTPStubsDescriptor?
-    private var updateStub: OHHTTPStubsDescriptor?
-    private var getAllStub: OHHTTPStubsDescriptor?
-    private var getOneStub: OHHTTPStubsDescriptor?
+    public var createStub: OHHTTPStubsDescriptor?
+    public var deleteStub: OHHTTPStubsDescriptor?
+    public var updateStub: OHHTTPStubsDescriptor?
+    public var getAllStub: OHHTTPStubsDescriptor?
+    public var getOneStub: OHHTTPStubsDescriptor?
     
     public init(host: String?, endpoint: String, initialValues: [T]?) {
         self.host = host
@@ -106,7 +106,7 @@ public class MockedRESTStore<T: ModelItem> {
         return self.store.removeAtIndex(index)
     }
     
-    private func hijackGetAll() {
+    public func hijackGetAll() {
         if (self.getAllStub != nil) { return }
         
         self.getAllStub =
@@ -130,7 +130,7 @@ public class MockedRESTStore<T: ModelItem> {
             })
     }
     
-    private func hijackGetOne() {
+    public func hijackGetOne() {
         if (self.getOneStub != nil) { return }
         
         self.getOneStub =
@@ -163,7 +163,7 @@ public class MockedRESTStore<T: ModelItem> {
             })
     }
     
-    private func hijackCreate() {
+    public func hijackCreate() {
         if self.createStub != nil { return }
         
         self.createStub =
@@ -202,7 +202,7 @@ public class MockedRESTStore<T: ModelItem> {
             })
     }
     
-    private func hijackUpdate() {
+    public func hijackUpdate() {
         if (self.updateStub != nil) { return }
         
         self.updateStub =
@@ -242,7 +242,7 @@ public class MockedRESTStore<T: ModelItem> {
             })
     }
     
-    private func hijackDelete() {
+    public func hijackDelete() {
         if (self.deleteStub != nil) { return }
         
         self.deleteStub =
