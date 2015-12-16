@@ -8,8 +8,9 @@
 
 import Foundation
 import RSDSerialization
+@testable import RSDRESTServices
 
-struct User: JSONSerializable, Comparable, CustomStringConvertible {
+struct User: ModelItem, CustomStringConvertible {
     var id: NSUUID?
     var prefix: String?
     var first: String
@@ -75,6 +76,10 @@ func==(lhs: User, rhs: User) -> Bool {
     if (lhs.id != nil && rhs.id != nil) {
         return lhs.id == rhs.id
     }
+    return lhs.prefix == rhs.prefix && lhs.first == rhs.first && lhs.middle == rhs.middle && lhs.last == rhs.last && lhs.suffix == rhs.suffix
+}
+
+func==%(lhs: User, rhs: User) -> Bool {
     return lhs.prefix == rhs.prefix && lhs.first == rhs.first && lhs.middle == rhs.middle && lhs.last == rhs.last && lhs.suffix == rhs.suffix
 }
 

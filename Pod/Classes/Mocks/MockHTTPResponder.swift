@@ -63,7 +63,22 @@ public class MockHTTPResponder<T: JSONSerializable> {
         
     }
     
-    public class func produceObjectResponse(object: T?) -> OHHTTPStubsResponse {
+    private class func stubsResponseForError(error: StoreError?) -> OHHTTPStubsResponse {
+        if let myerror = error {
+            switch(myerror) {
+            case StoreError.NotFound:
+                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 404, headers: nil)
+            case StoreError.NotUnique:
+                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 409, headers: nil)
+            default:
+                return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 400, headers: nil)
+            }
+        }
+        // should never hit here.  return I'm a teapot error
+        return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 418, headers: nil)
+    }
+    
+    public class func produceObjectResponse(object: T?, error: StoreError?) -> OHHTTPStubsResponse {
         if let json = object?.convertToJSON() {
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions.PrettyPrinted)
@@ -72,11 +87,11 @@ public class MockHTTPResponder<T: JSONSerializable> {
                 return OHHTTPStubsResponse(error: error)
             }
         } else {
-            return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 404, headers: nil)
+            return stubsResponseForError(error)
         }
     }
     
-    public class func produceArrayResponse(array: [T]?) -> OHHTTPStubsResponse {
+    public class func produceArrayResponse(array: [T]?, error: StoreError?) -> OHHTTPStubsResponse {
         if let json = array?.convertToJSONArray() {
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(json, options: NSJSONWritingOptions.PrettyPrinted)
@@ -85,7 +100,7 @@ public class MockHTTPResponder<T: JSONSerializable> {
                 return OHHTTPStubsResponse(error: error)
             }
         } else {
-            return OHHTTPStubsResponse(JSONObject: JSONDictionary(), statusCode: 404, headers: nil)
+            return stubsResponseForError(error)
         }
     }
     

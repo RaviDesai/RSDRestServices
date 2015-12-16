@@ -23,7 +23,7 @@ public protocol UniqueFieldComparable {
     func==%(lhs: Self, rhs: Self) -> Bool
 }
 
-func==%<T: UniqueFieldComparable>(lhs: T, rhs: T) -> Bool {
+public func==%<T: UniqueFieldComparable>(lhs: T, rhs: T) -> Bool {
     return false
 }
 
