@@ -13,7 +13,7 @@ import RSDSerialization
 
 class TestMockRestStore: XCTestCase {
 
-    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")], authFilter: nil)
+    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")])
     
     func testCreateSuccess() {
         let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil))
@@ -159,7 +159,12 @@ class TestMockRestStore: XCTestCase {
 
 class TestMockRestStoreWithAuthFilter: XCTestCase {
     
-    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")], authFilter: {(user)->Bool in user.suffix == "PhD" })
+    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")])
+    
+    override func setUp() {
+        super.setUp()
+        store.authFilter = { (user) -> Bool in user.suffix == "PhD" }
+    }
     
     func testCreateSuccess() {
         let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: "PhD" ))
