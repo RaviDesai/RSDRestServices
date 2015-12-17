@@ -13,7 +13,7 @@ import RSDSerialization
 
 class TestMockRestStore: XCTestCase {
 
-    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")])
+    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")], authFilter: nil)
     
     func testCreateSuccess() {
         let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil))
@@ -155,4 +155,109 @@ class TestMockRestStore: XCTestCase {
         XCTAssertEqual(index1, 1)
     }
 
+}
+
+class TestMockRestStoreWithAuthFilter: XCTestCase {
+    
+    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")], authFilter: {(user)->Bool in user.suffix == "PhD" })
+    
+    func testCreateSuccess() {
+        let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: "PhD" ))
+        XCTAssertTrue(result != nil)
+        XCTAssertEqual(store.store.count, 3)
+    }
+    
+    func testCreateFailure() {
+        var result: User?
+        var resultError: StoreError?
+        do {
+            result = try store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil ))
+        } catch let err as StoreError {
+            resultError = err
+        } catch {
+            resultError = StoreError.UndefinedError
+        }
+        
+        XCTAssertTrue(result == nil)
+        XCTAssertEqual(store.store.count, 2)
+        XCTAssertTrue(resultError == StoreError.NotAuthorized)
+    }
+    
+    func testDeleteSuccess() {
+        let result = try? store.delete(self.store.store[1].id!)
+        XCTAssertTrue(result != nil)
+        XCTAssertEqual(store.store.count, 1)
+    }
+    
+    func testDeleteFailure() {
+        var result: User?
+        var resultError: StoreError?
+        do {
+            result = try store.delete(self.store.store[0].id!)
+        } catch let err as StoreError {
+            resultError = err
+        } catch {
+            resultError = StoreError.UndefinedError
+        }
+        
+        XCTAssertTrue(result == nil)
+        XCTAssertEqual(store.store.count, 2)
+        XCTAssertTrue(resultError == StoreError.NotAuthorized)
+    }
+    
+    func testGetOneSuccess() {
+        let result = try? store.get(store.store[1].id!)
+        XCTAssertTrue(result != nil)
+        XCTAssertEqual(store.store.count, 2)
+    }
+    
+    func testGetOneFailure() {
+        var result: User?
+        var resultError: StoreError?
+        do {
+            result = try store.get(self.store.store[0].id!)
+        } catch let err as StoreError {
+            resultError = err
+        } catch {
+            resultError = StoreError.UndefinedError
+        }
+        
+        XCTAssertTrue(result == nil)
+        XCTAssertEqual(store.store.count, 2)
+        XCTAssertTrue(resultError == StoreError.NotAuthorized)
+    }
+
+    func testGetAll() {
+        let result = store.getAll()
+        XCTAssertEqual(result.count, 1)
+    }
+    
+    func testUpdateSuccess() {
+        var record = store.store[1]
+        record.prefix = "Mx"
+        
+        let result = try? store.update(record)
+        XCTAssertTrue(result != nil)
+        XCTAssertEqual(store.store.count, 2)
+    }
+    
+    func testUpdateFailure() {
+        var record = store.store[0]
+        record.prefix = "Mx"
+        
+        var result: User?
+        var resultError: StoreError?
+        do {
+            result = try store.update(record)
+        } catch let err as StoreError {
+            resultError = err
+        } catch {
+            resultError = StoreError.UndefinedError
+        }
+        
+        XCTAssertTrue(result == nil)
+        XCTAssertEqual(store.store.count, 2)
+        XCTAssertTrue(resultError == StoreError.NotAuthorized)
+
+    }
 }
