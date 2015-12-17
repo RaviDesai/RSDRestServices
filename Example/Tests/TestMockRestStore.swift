@@ -163,7 +163,8 @@ class TestMockRestStoreWithAuthFilter: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        store.authFilter = { (user) -> Bool in user.suffix == "PhD" }
+        store.authFilterForReading = { (user) -> Bool in user.suffix == "PhD" }
+        store.authFilterForUpdating = { (user) -> Bool in user.suffix == "PhD" }
     }
     
     func testCreateSuccess() {

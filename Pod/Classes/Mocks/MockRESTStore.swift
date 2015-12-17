@@ -21,7 +21,8 @@ public class MockedRESTStore<T: ModelItem> {
     public var host: String?
     public var endpoint: String?
     private var endpointRegEx: NSRegularExpression?
-    public var authFilter: (T)->(Bool)
+    public var authFilterForReading: (T)->(Bool)
+    public var authFilterForUpdating: (T)->(Bool)
     
     public var store: [T]
     
@@ -35,7 +36,8 @@ public class MockedRESTStore<T: ModelItem> {
     public init(host: String?, endpoint: String, initialValues: [T]?) {
         self.host = host
         self.endpoint = endpoint
-        self.authFilter = {(t: T)->(Bool) in return true }
+        self.authFilterForReading = {(t: T)->(Bool) in return true }
+        self.authFilterForUpdating = {(t: T)->(Bool) in return true }
         
         let queryPattern = "\(endpoint)/(.+)$"
         self.endpointRegEx = try? NSRegularExpression(pattern: queryPattern, options: NSRegularExpressionOptions.CaseInsensitive)
@@ -81,7 +83,7 @@ public class MockedRESTStore<T: ModelItem> {
             throw StoreError.InvalidId
         }
         
-        if (!authFilter(object)) {
+        if (!authFilterForUpdating(object)) {
             throw StoreError.NotAuthorized
         }
         
@@ -100,7 +102,7 @@ public class MockedRESTStore<T: ModelItem> {
             throw StoreError.NotFound
         }
         
-        if (!authFilter(store[index])) {
+        if (!authFilterForUpdating(store[index])) {
             throw StoreError.NotAuthorized
         }
         
@@ -117,7 +119,7 @@ public class MockedRESTStore<T: ModelItem> {
             throw StoreError.NotFound
         }
         
-        if (!authFilter(store[index])) {
+        if (!authFilterForUpdating(store[index])) {
             throw StoreError.NotAuthorized
         }
         
@@ -129,7 +131,7 @@ public class MockedRESTStore<T: ModelItem> {
             throw StoreError.NotFound
         }
         
-        if (!authFilter(store[index])) {
+        if (!authFilterForReading(store[index])) {
             throw StoreError.NotAuthorized
         }
         
@@ -137,7 +139,7 @@ public class MockedRESTStore<T: ModelItem> {
     }
     
     public func getAll() -> [T] {
-        return self.store.filter(self.authFilter).sort(<)
+        return self.store.filter(self.authFilterForReading).sort(<)
     }
     
     public func hijackGetAll() {
