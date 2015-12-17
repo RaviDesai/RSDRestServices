@@ -21,7 +21,7 @@ public class MockedRESTStore<T: ModelItem> {
     public var host: String?
     public var endpoint: String?
     private var endpointRegEx: NSRegularExpression?
-    private var authFilter: (T)->(Bool)
+    public var authFilter: (T)->(Bool)
     
     public var store: [T]
     
@@ -32,14 +32,10 @@ public class MockedRESTStore<T: ModelItem> {
     public var getOneStub: OHHTTPStubsDescriptor?
     
     
-    public init(host: String?, endpoint: String, initialValues: [T]?, authFilter: ((T)->(Bool))?) {
+    public init(host: String?, endpoint: String, initialValues: [T]?) {
         self.host = host
         self.endpoint = endpoint
-        if let filter = authFilter {
-            self.authFilter = filter
-        } else {
-            self.authFilter = {(t: T)->(Bool) in return true }
-        }
+        self.authFilter = {(t: T)->(Bool) in return true }
         
         let queryPattern = "\(endpoint)/(.+)$"
         self.endpointRegEx = try? NSRegularExpression(pattern: queryPattern, options: NSRegularExpressionOptions.CaseInsensitive)
