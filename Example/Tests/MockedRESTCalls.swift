@@ -49,8 +49,21 @@ class MockedRESTCalls {
             return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
         })
     }
-    
+
     class func hijackUserGetAll() {
+        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
+            if (request.URL?.host != .Some("com.desai")) { return false }
+            if (request.URL?.path != .Some("/api/Users")) { return false }
+            if (request.HTTPMethod != "GET") { return false }
+            if (request.URL?.query != nil) { return false }
+            return true
+            }) { (request) -> OHHTTPStubsResponse in
+                let data = sampleUsersData()
+                return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
+        }
+    }
+
+    class func hijackUserGet() {
         OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
             if (request.URL?.host != .Some("com.desai")) { return false }
             if (request.URL?.path != .Some("/api/Users")) { return false }

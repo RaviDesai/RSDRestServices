@@ -1,6 +1,6 @@
 PODS:
   - OHHTTPStubs (4.1.0)
-  - RSDRESTServices (0.3.13):
+  - RSDRESTServices (0.4.1):
     - OHHTTPStubs (~> 4.1.0)
     - RSDSerialization (~> 0.3)
   - RSDSerialization (0.3.4)
@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   OHHTTPStubs: f3473ab21dbf0815253ac96b977d5c36f1daad09
-  RSDRESTServices: b86aa932cfe5ee7e7edae017e1bf026288b74b57
+  RSDRESTServices: 882c1df059c22b71626341c1281218e0fb3e2046
   RSDSerialization: 5345bbbab8c3ffd16a75f633e13cd94c67388a95
 
 COCOAPODS: 0.39.0.beta.5

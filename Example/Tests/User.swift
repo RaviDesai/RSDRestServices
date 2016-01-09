@@ -10,13 +10,15 @@ import Foundation
 import RSDSerialization
 @testable import RSDRESTServices
 
-struct User: ModelItem, CustomStringConvertible {
+struct User: ModelResource, CustomStringConvertible {
     var id: NSUUID?
     var prefix: String?
     var first: String
     var middle: String?
     var last: String
     var suffix: String?
+    
+    static var resourceEndpoint = "api/Users"
     
     init(id: NSUUID?, prefix: String?, first: String, middle: String?, last: String, suffix: String?) {
         self.id = id

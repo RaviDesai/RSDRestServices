@@ -11,6 +11,7 @@
 		4155ED741BDE685300EEC431 /* TestAPISite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4155ED731BDE685300EEC431 /* TestAPISite.swift */; };
 		4155ED761BDE7D8900EEC431 /* TestResponseParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4155ED751BDE7D8900EEC431 /* TestResponseParsers.swift */; };
 		4155ED781BDE91C100EEC431 /* TestBodyEncoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4155ED771BDE91C100EEC431 /* TestBodyEncoders.swift */; };
+		416A51331C40B0EF00DE901C /* TestModelResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416A51321C40B0EF00DE901C /* TestModelResource.swift */; };
 		419089DF1BDBB79B004F6F46 /* MockedRESTCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */; };
 		419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */; };
 		419089E11BDBB79B004F6F46 /* TestAPISiteSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */; };
@@ -44,6 +45,7 @@
 		4155ED731BDE685300EEC431 /* TestAPISite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISite.swift; sourceTree = "<group>"; };
 		4155ED751BDE7D8900EEC431 /* TestResponseParsers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestResponseParsers.swift; sourceTree = "<group>"; };
 		4155ED771BDE91C100EEC431 /* TestBodyEncoders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBodyEncoders.swift; sourceTree = "<group>"; };
+		416A51321C40B0EF00DE901C /* TestModelResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestModelResource.swift; sourceTree = "<group>"; };
 		419089DB1BDBB79B004F6F46 /* MockedRESTCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockedRESTCalls.swift; sourceTree = "<group>"; };
 		419089DC1BDBB79B004F6F46 /* RESTResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RESTResponseTests.swift; sourceTree = "<group>"; };
 		419089DD1BDBB79B004F6F46 /* TestAPISiteSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestAPISiteSerialization.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				4155ED771BDE91C100EEC431 /* TestBodyEncoders.swift */,
 				41A83CCE1BDD3A92003AF6D0 /* User.swift */,
 				41A6EA1F1C1CC63C00EBF8C6 /* TestMockRestStore.swift */,
+				416A51321C40B0EF00DE901C /* TestModelResource.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				419089E01BDBB79B004F6F46 /* RESTResponseTests.swift in Sources */,
+				416A51331C40B0EF00DE901C /* TestModelResource.swift in Sources */,
 				41A6EA201C1CC63C00EBF8C6 /* TestMockRestStore.swift in Sources */,
 				419089E41BDBD67F004F6F46 /* APISessionTests.swift in Sources */,
 				4155ED781BDE91C100EEC431 /* TestBodyEncoders.swift in Sources */,
