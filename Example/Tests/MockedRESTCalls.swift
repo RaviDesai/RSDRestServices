@@ -26,11 +26,11 @@ class MockedRESTCalls {
     }
     
     static func sampleUsers() -> [User] {
-        return [User(id: id0, prefix: "Sir", first: "David", middle: "Jon", last: "Gilmour", suffix: "CBE"),
-                User(id: id1, prefix: nil, first: "Roger", middle: nil, last: "Waters", suffix: nil),
-                User(id: id2, prefix: "Sir", first: "Bob", middle: nil, last: "Geldof", suffix: "KBE"),
-                User(id: id3, prefix: "Mr", first: "Nick", middle: "Berkeley", last: "Mason", suffix: nil),
-                User(id: id4, prefix: "", first: "Richard", middle: "William", last: "Wright", suffix: "")]
+        return [User(id: id0, prefix: "Sir", first: "David", middle: "Jon", last: "Gilmour", suffix: "CBE", friends: nil),
+                User(id: id1, prefix: nil, first: "Roger", middle: nil, last: "Waters", suffix: nil, friends: nil),
+                User(id: id2, prefix: "Sir", first: "Bob", middle: nil, last: "Geldof", suffix: "KBE", friends: nil),
+                User(id: id3, prefix: "Mr", first: "Nick", middle: "Berkeley", last: "Mason", suffix: nil, friends: nil),
+                User(id: id4, prefix: "", first: "Richard", middle: "William", last: "Wright", suffix: "", friends: nil)]
     }
     
     static func sampleUsersData() -> NSData {
@@ -60,19 +60,6 @@ class MockedRESTCalls {
             }) { (request) -> OHHTTPStubsResponse in
                 let data = sampleUsersData()
                 return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
-        }
-    }
-
-    class func hijackUserGet() {
-        OHHTTPStubs.stubRequestsPassingTest({ (request) -> Bool in
-            if (request.URL?.host != .Some("com.desai")) { return false }
-            if (request.URL?.path != .Some("/api/Users")) { return false }
-            if (request.HTTPMethod != "GET") { return false }
-            if (request.URL?.query != nil) { return false }
-            return true
-        }) { (request) -> OHHTTPStubsResponse in
-            let data = sampleUsersData()
-            return OHHTTPStubsResponse(data: data, statusCode: 200, headers: ["Content-Type": "application/json"])
         }
     }
     

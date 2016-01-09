@@ -14,7 +14,7 @@ import RSDSerialization
 class TestResponseParsers: XCTestCase {
     
     func testAPIDataResponseParser() {
-        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
+        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil, friends: nil)]
 
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
         
@@ -35,7 +35,7 @@ class TestResponseParsers: XCTestCase {
     }
     
     func testAPIJSONSerializationResponseParser() {
-        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
+        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil, friends: nil)]
 
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
         let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)
@@ -59,7 +59,7 @@ class TestResponseParsers: XCTestCase {
     }
 
     func testAPIJSONSerializationResponseParserFailsReversingArrayWithSingle() {
-        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
+        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil, friends: nil)]
         
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
         let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)
@@ -80,7 +80,7 @@ class TestResponseParsers: XCTestCase {
     }
 
     func testAPIJSONSerializationResponseParserFailsWrongType() {
-        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil)]
+        let users = [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Mrs", first: "Bonnie", middle: "J", last: "Desai", suffix: nil, friends: nil)]
         
         let singleUserData = try! NSJSONSerialization.dataWithJSONObject(users[0].convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
         let multiUserData = try! NSJSONSerialization.dataWithJSONObject(users.convertToJSONArray(), options: NSJSONWritingOptions.PrettyPrinted)

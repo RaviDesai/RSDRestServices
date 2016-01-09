@@ -182,7 +182,7 @@ class APISessionTests: XCTestCase {
     func testPostNewUser() {
         MockedRESTCalls.hijackUserPost()
         
-        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
+        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil, friends: nil)
         let endpointUrl = URLAndParameters(url: "api/Users")
         let endpoint = APIEndpoint.POST(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
@@ -236,7 +236,7 @@ class APISessionTests: XCTestCase {
     func testPutNewUser() {
         MockedRESTCalls.hijackUserPut()
         
-        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
+        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil, friends: nil)
         let endpointUrl = URLAndParameters(url: "api/Users")
         let endpoint = APIEndpoint.PUT(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()
@@ -310,7 +310,7 @@ class APISessionTests: XCTestCase {
     func testDeleteNewUser() {
         MockedRESTCalls.hijackUserDelete()
         
-        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil)
+        let newUser = User(id: NSUUID(), prefix: nil, first: "Syd", middle: nil, last: "Barrett", suffix: nil, friends: nil)
         let endpointUrl = URLAndParameters(url: "api/Users")
         let endpoint = APIEndpoint.DELETE(endpointUrl)
         let parser = APIJSONSerializableResponseParser<User>()

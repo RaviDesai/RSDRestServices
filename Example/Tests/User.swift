@@ -17,20 +17,26 @@ struct User: ModelResource, CustomStringConvertible {
     var middle: String?
     var last: String
     var suffix: String?
+    var friends: [NSUUID]?
     
-    static var resourceEndpoint = "api/Users"
+    static var resourceApiEndpoint = "/api"
+    static var resourceName = "users"
+    static var resourceVersion = "1"
+    static var resourceVersionRepresentedBy = ModelResourceVersionRepresentation.CustomRequestHeader
+    static var resourceVendor = "sample-vendor"
     
-    init(id: NSUUID?, prefix: String?, first: String, middle: String?, last: String, suffix: String?) {
+    init(id: NSUUID?, prefix: String?, first: String, middle: String?, last: String, suffix: String?, friends: [NSUUID]?) {
         self.id = id
         self.prefix = prefix
         self.first = first
         self.middle = middle
         self.last = last
         self.suffix = suffix
+        self.friends = friends
     }
     
-    static func create(id: NSUUID?)(prefix: String?)(first: String)(middle: String?)(last: String)(suffix: String?) -> User {
-        return User(id: id, prefix: prefix, first: first, middle: middle, last: last, suffix: suffix)
+    static func create(id: NSUUID?)(prefix: String?)(first: String)(middle: String?)(last: String)(suffix: String?)(friends: [NSUUID]?) -> User {
+        return User(id: id, prefix: prefix, first: first, middle: middle, last: last, suffix: suffix, friends: friends)
     }
     
     static func createFromJSON(json: JSON) -> User? {
@@ -42,6 +48,7 @@ struct User: ModelResource, CustomStringConvertible {
                 <**> record["Middle"] >>- asString
                 <*> record["Last"] >>- asString
                 <**> record["Suffix"] >>- asString
+                <**> record["Friends"] >>- NSUUID.createFromJSONArray
         }
         return nil
     }
@@ -53,7 +60,8 @@ struct User: ModelResource, CustomStringConvertible {
             ("First", self.first),
             ("Middle", self.middle),
             ("Last", self.last),
-            ("Suffix", self.suffix))
+            ("Suffix", self.suffix),
+            ("Friends", self.friends?.map { $0.UUIDString }))
     }
     
     var description: String {

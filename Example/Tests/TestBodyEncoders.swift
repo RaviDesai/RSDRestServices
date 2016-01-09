@@ -14,7 +14,7 @@ import RSDSerialization
 class TestBodyEncoders: XCTestCase {
 
     func testMultipart() {
-        let user = User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil)
+        let user = User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil)
         let data = try! NSJSONSerialization.dataWithJSONObject(user.convertToJSON(), options: NSJSONWritingOptions.PrettyPrinted)
 
         let postedData = APIPostData(filename: "users.json", mediaType: "application/json", body: data, parameters: nil)
@@ -48,7 +48,7 @@ class TestBodyEncoders: XCTestCase {
     }
     
     func testJSON() {
-        let user = User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil)
+        let user = User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil)
 
         let bodyEncoder = APIJSONBodyEncoder(model: user)
 
@@ -64,7 +64,7 @@ class TestBodyEncoders: XCTestCase {
     }
     
     func testURLBodyEncoder() {
-        let user = User(id: nil, prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil)
+        let user = User(id: nil, prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil)
         
         let bodyEncoder = APIURLBodyEncoder(model: user)
         

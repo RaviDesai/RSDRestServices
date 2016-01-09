@@ -13,16 +13,16 @@ import RSDSerialization
 
 class TestMockRestStore: XCTestCase {
 
-    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")])
+    var store = MockedRESTStore<User>(scheme: "http", host: "api.test.com", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD", friends: nil)])
     
     func testCreateSuccess() {
-        let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil))
+        let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil, friends: nil))
         XCTAssertTrue(result != nil)
         XCTAssertEqual(store.store.count, 3)
     }
 
     func testCreateInvalidIdFailure() {
-        let item = User(id: NSUUID(), prefix: nil, first: "Test", middle: nil, last: "User", suffix: nil)
+        let item = User(id: NSUUID(), prefix: nil, first: "Test", middle: nil, last: "User", suffix: nil, friends: nil)
         var result: User?
         var resultError: StoreError?
         do {
@@ -65,7 +65,7 @@ class TestMockRestStore: XCTestCase {
     }
 
     func testUpdateNotFoundFailure() {
-        let item = User(id: NSUUID(), prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil)
+        let item = User(id: NSUUID(), prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil, friends: nil)
         var result: User?
         var resultError: StoreError?
         do {
@@ -109,7 +109,7 @@ class TestMockRestStore: XCTestCase {
     }
 
     func testDeleteFailure() {
-        let item = User(id: NSUUID(), prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil)
+        let item = User(id: NSUUID(), prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil, friends: nil)
         let result = try? store.delete(item.id!)
         XCTAssertTrue(result == nil)
         XCTAssertEqual(store.store.count, 2)
@@ -159,7 +159,7 @@ class TestMockRestStore: XCTestCase {
 
 class TestMockRestStoreWithAuthFilter: XCTestCase {
     
-    var store = MockedRESTStore<User>(host: "http://api.test.com", endpoint: "/api/Users", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD")])
+    var store = MockedRESTStore<User>(scheme: "http", host: "api.test.com", initialValues: [User(id: NSUUID(), prefix: nil, first: "Ravi", middle: "S", last: "Desai", suffix: nil, friends: nil), User(id: NSUUID(), prefix: "Dr", first: "Eugene", middle: nil, last: "Frankenstein", suffix: "PhD", friends: nil)])
     
     override func setUp() {
         super.setUp()
@@ -168,7 +168,7 @@ class TestMockRestStoreWithAuthFilter: XCTestCase {
     }
     
     func testCreateSuccess() {
-        let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: "PhD" ))
+        let result = try? store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: "PhD", friends: nil ))
         XCTAssertTrue(result != nil)
         XCTAssertEqual(store.store.count, 3)
     }
@@ -177,7 +177,7 @@ class TestMockRestStoreWithAuthFilter: XCTestCase {
         var result: User?
         var resultError: StoreError?
         do {
-            result = try store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil ))
+            result = try store.create(User(id: nil, prefix: nil, first: "Alexander", middle: nil, last: "Desai", suffix: nil, friends: nil))
         } catch let err as StoreError {
             resultError = err
         } catch {
